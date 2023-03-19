@@ -115,11 +115,29 @@ buttonSubmit.addEventListener("click", (event) => {
         console.log(songData)
         radarChart.update();
         });
-      };
+      }
+    
+    let decadeSelection = document.querySelector('#decade');
+    decadeValue = decadeSelection.value;
+
+    let modelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`;
+    console.log(modelURL);
+
+    d3.json(modelURL).then(function(data){
+      let modelData = {}
+      modelData = data;
+
+      let billboardPred = modelData['Billboard']
+      let nonchartingPred = modelData['Noncharting']
+      console.log(billboardPred)
+      d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
+      d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
+    });
+    
+    
   },
 );
 
- console.log(searchSpotifyData)
 // adding dummy dropdown listener event
 const decadeInput = document.querySelector('#decade');
 
@@ -132,6 +150,7 @@ decadeInput.addEventListener('change', (e) => {
   console.log(decadeData);
   radarChart.data.datasets[1].data = decadeData;
   radarChart.update();
+
 });
 
 // creating element that selects radar chart

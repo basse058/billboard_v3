@@ -274,7 +274,7 @@ def get_audio_features(id):
         # Create dataframe from dictionary to apply scaler
         feat_df = pd.DataFrame(features_dict, index=[0])
         # Load in saved scaler
-        audio_feature_scaler = joblib.load("./Resources/audio_feature_scaler.pickle")
+        audio_feature_scaler = joblib.load("./static/data/audio_feature_scaler.pickle")
         # Transform audio features in dataframe into array
         scaled_features = audio_feature_scaler.transform(feat_df)[0]
 
