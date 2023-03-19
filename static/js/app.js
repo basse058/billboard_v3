@@ -127,8 +127,9 @@ decadeInput.addEventListener('change', (e) => {
   decadeValue = decadeInput.value
   // console.log("Decade:", decadeValue);
   // useModelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`
-  decadeRawData = decadeValue[groupedDecades]
-  decadeData = cleanData(rawDecadeData)
+  decadeRawData = groupedDecades[decadeValue]
+  let decadeData = cleanData(decadeRawData)
+  console.log(decadeData);
   radarChart.data.datasets[1].data = decadeData;
   radarChart.update();
 });
