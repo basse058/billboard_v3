@@ -19,51 +19,81 @@
   </head>
   
   <body>
-    <div class="container">
-    <div class="wrapper">
-      <div class="title_name">
-        <h1>Hit Song Predictor</h1>
-        <h6>An exploration of Spotify's audio features for all weekly Billboard charting songs throughout the decades.</h6>
-      </div>
-  
-      <div class="search_lines" >
-          <h7 class="panel-title">Enter a song/artist and select a decade to see if it would be a hit during that time period!</h7>
-        <div id="enter-info" class="panel-body">
-          <div >
-            <input type= "search" id= "search-song" label="Song" placeholder="Song" >
+    <!-- <div class="wrapper"> -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="title_name">
+            <h1>Hit Song Predictor</h1>
+            <h6>An exploration of Spotify's audio features for all weekly Billboard charting songs throughout the decades.</h6>
           </div>
-          <div">
-            <input type= "search" id= "search-artist" label="Artist" placeholder="Artist">
-          </div>
-          <div>
-              <button class="btn btn-primary" type="submit" id=submit name="submit">Submit</button>
-          </div>
-  
+        <!-- end of row1-->
+        </div>
 
-          <div>
-            <select id="decade">
-              <option value="1960s">1960s</option>
-              <option value="1970s">1970s</option>
-              <option value="1980s">1980s</option>
-              <option value="1990s">1990s</option>
-              <option value="2000s">2000s</option>
-              <option value="2010s">2010s</option>
-            </select>
+        <!-- start of row2 -->
+        <div class="row">
+          <div class="col-md-6">
+
+            <!-- Search Panel -->
+            <div class="panel panel-primary">
+
+              <div class="panel-heading">
+                <h7 class="panel-title">Song and Decade Selection</h7>
+              </div>
+              <div class="panel-body" id="enter-info">
+                <p>Enter a song/artist and select a decade to see if it would be a hit during that time period!</p>
+                <input type= "search" id= "search-song" label="Song" placeholder="Song">
+                <input type= "search" id= "search-artist" label="Artist" placeholder="Artist">
+                <button class="btn btn-primary" type="submit" id=submit name="submit">Submit</button>
+                <select id="decade">
+                  <option value="1960s">1960s</option>
+                  <option value="1970s">1970s</option>
+                  <option value="1980s">1980s</option>
+                  <option value="1990s">1990s</option>
+                  <option value="2000s">2000s</option>
+                  <option value="2010s">2010s</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          
+          
+          <!-- End of panel -->
+          <div class="col-md-6">
+            <div class="panel" id="model-predictions">
+              <div class="panel-heading">
+                <h7 class="panel-title">Predictions</h7>
+              </div>
+              <div class="panel-body">
+                <p id="billboard-pred">Billboard Probability:</p>
+                <p id="noncharting-pred">Noncharting Probability:</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- end of row2 -->
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="chart-container">
+              <div class="radar-frame">
+                <canvas id="radar-compare"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="chart-container">
+              <div class="featuresChart-frame"> 
+                <canvas id="featuresChart"></canvas>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
-
-      <div class="chart-container">
-        <canvas id="radar-compare"></canvas>
-      </div>
-
-    </div>    
-    
-    <div class="row"> 
-      <canvas id="featuresChart"></canvas>
-    </div>
-  </div>
-
+      <!-- End of container -->
+    <!-- </div> -->
 
     <!-- Linking JS to Bootstrap and all -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -76,6 +106,6 @@
     <script type="text/javascript" src="../static/js/charts.js"></script>
     <script type="text/javascript" src="../static/js/app.js"></script>
 
-  </div>
+
   </body>
 </html>
