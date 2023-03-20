@@ -99,8 +99,8 @@ buttonSubmit.addEventListener("click", (event) => {
 
     songName = songInput.value
     artistName = artistInput.value
-    console.log("SONG", songName, "ARTIST", artistName);
-
+  
+    
     if (!songName || !artistName) {
       console.log('missing value')
       return
@@ -108,67 +108,73 @@ buttonSubmit.addEventListener("click", (event) => {
 
     else {
       let songUrl = `/search_spotify/${songName}/${artistName}`
-    
+      console.log(songUrl);
       // DOES NOT RETURN CORRECT SONG INFO
-      // d3.json(songUrl).then(function(data){
-      //   console.log(data);
-      //   songData = cleanData(data)
-      //   radarChart.data.datasets[0].data = songData;
-
-      //   songName = data['song_name']
-      //   artistName = data['artist']
-      //   d3.select("#song-info").text(`"${songName}" by ${artistName}: ${decadeValue}`);
-      //   // console.log(songData)
-      //   radarChart.update();
-        
-      //   });
-      async function getData() {
-        const response = await fetch(songUrl);
-        const data = await response.json();
+      d3.json(songUrl).then(function(data){
         console.log(data);
+        songData = cleanData(data)
+        radarChart.data.datasets[0].data = songData;
+
+        songName = data['song_name']
+        artistName = data['artist']
         d3.select("#song-info").text(`"${songName}" by ${artistName}: ${decadeValue}`);
-        }
-      }
+        // console.log(songData)
+        radarChart.update();
+        
+        });
+          // async function getData() {
+          //   const response = await fetch(songUrl);
+          //   const data = await response.json();
+          //   console.log(data);
+          //   let searchSpotifyData = data;
+          //   console.log("URL", songUrl)
+          //   console.log("SONGINFO",data['song_info'][0]);
+          //   songData = cleanData(searchSpotifyData)
+          //   radarChart.data.datasets[0].data = songData;
+          //   // console.log(songData)
+          //   radarChart.update();
+          //   d3.select("#song-info").text(`"${songName}" by ${artistName}: ${decadeValue}`);
+          // }
+    }
+});
     
     let decadeSelection = document.querySelector('#decade');
     decadeValue = decadeSelection.value;
-    
+
 
     let modelURL = `/use_model/${songName}/${artistName}/${decadeValue}`;
-
+    console.log("MODELURL", modelURL);
     d3.json(modelURL).then(function(data){
-        console.log(data);
-        let billboardPred = data['Billboard'];
-        let nonchartingPred = data['Noncharting'];
+      console.log(data);
+      let billboardPred = data['Billboard'];
+      let nonchartingPred = data['Noncharting'];
         // let dataValues = [billboardPred, nonchartingPred];
-        d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
-        d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
-        change_gauge(gaugeChart, "Gauge", data);
-      });
-  },
-);
+      d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
+      d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
+      d3.select("#song-info").text(`"${songName}" by ${songName}: ${decadeValue}`);
+      change_gauge(gaugeChart, "Gauge", data);
+    });
 
 // adding dummy dropdown listener event
-let decadeInput = document.querySelector('#decade');
+const decadeInput = document.querySelector('#decade');
 
 decadeInput.addEventListener('change', (e) => {
-    decadeValue = decadeInput.value
-    // console.log("Decade:", decadeValue);
-    useModelURL = `/use_model/${songName}/${artistName}/${decadeValue}`
-    decadeRawData = groupedDecades[decadeValue]
-    let decadeData = cleanData(decadeRawData)
-    radarChart.data.datasets[1].data = decadeData;
-    radarChart.update();
-    
-
+  decadeValue = decadeInput.value
+  // console.log("Decade:", decadeValue);
+  let useModelURL = `/use_model/${songName}/${artistName}/${decadeValue}`
+  decadeRawData = groupedDecades[decadeValue]
+  let decadeData = cleanData(decadeRawData)
+  console.log(decadeData);
+  radarChart.data.datasets[1].data = decadeData;
+  radarChart.update();
 });
 
 // creating element that selects radar chart
 let canvasElement = document.getElementById('radar-compare');
 
 function setSelectedIndex(s, i){
-s.options[i-1].selected = true;
-return;
+  s.options[i-1].selected = true;
+  return;
 }
 
 function createChart(initialDecade){
