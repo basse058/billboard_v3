@@ -1,10 +1,6 @@
-/* body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    height: 100vh;
-} */
+.jumbotron {
+    margin-bottom: 10px;
+}
 
 /* .wrapper {
     position: relative;
@@ -59,12 +55,12 @@
 }
 
 .panel-heading {
-    background-color:rgb(202, 199, 199);
+    background-color:darkgray;
     text-align:center;
   }
 
 .panel-title {
-font-size:20px;
+    font-size:20px;
 }
 
 h5 {
@@ -91,5 +87,9 @@ h5 {
 }
 
 .text-body {
-    text-align: center;
+    width:80%;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    font-size: 14px;
 }

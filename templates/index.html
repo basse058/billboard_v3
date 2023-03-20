@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Billboard Top 100: Audio Features</title>
+    <title>Billboard Hot 100: Audio Features</title>
 
     <!-- D3 library -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -24,10 +24,10 @@
         <!-- Start row 1 -->
         <div class="row">
           <img src="../static/images/billboard-logo.png" id="bblogo">
-          <div class="col-md-12 jumbotron jumbotron text-center mt-4 pt-1 bg-warning text-white rounded">
+          <div class="col-md-12 jumbotron text-center mt-4 pt-1 bg-warning text-white rounded">
             <div class="header-text" id="page-header">
-              <h1>Top 100 Hits Predictor</h1>
-              <h6>An exploration of Spotify's audio features for all weekly Billboard charting songs throughout the decades.</h6>
+              <h1>Hot 100 Hits Predictor</h1>
+              <h6>An analysis of Spotify's audio features for all songs that topped Billboard's Hot 100 weekly charts throughout the decades.</h6>
             </div>
 
         <!-- End row 1-->
@@ -42,11 +42,13 @@
                   </div>
                 </div>
                 <div class="panel-body text-body">
-                  <p><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
-                    Separate machine learning models were trained on thousands of both charting and non-charting songs for each decade.
+                  <text><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
+                    Separate machine learning models were trained on thousands of both charting and non-charting songs for each decade.<br>
                     Each Support Vector Machine model was trained by analyzing labeled data for a binary classification.
-                    The "Predictions" panel displays the probability calculated by the model for each outcome.<br>
-                    Enter a song and artist name in the input box below and select a decade. Click "Submit" to get started!</p>
+                    The "Predictions" panel displays the probability calculated by the model for each outcome. The data consists of all songs taken from 
+                    every weekly Billboard Hot 100 charts since its inception in 1958, and all audio features were pulled from Spotify's API.<br><br>
+                    <em><strong>Enter a song and artist name in the input box below and select a decade. Click "Submit" to get started!</strong></em>
+                  </text>
                 </div>
             </div>
           </div>
