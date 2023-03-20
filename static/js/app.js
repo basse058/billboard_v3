@@ -124,28 +124,26 @@ buttonSubmit.addEventListener("click", (event) => {
     
     let decadeSelection = document.querySelector('#decade');
     decadeValue = decadeSelection.value;
+    
 
     let modelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`;
 
     d3.json(modelURL).then(function(data){
-      let modelData = {}
-      modelData = data;
-      
-      let billboardPred = modelData['Billboard']
-      let nonchartingPred = modelData['Noncharting']
-      console.log(billboardPred)
-      d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
-      d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
+        let billboardPred = data['Billboard'];
+        let nonchartingPred = data['Noncharting'];
+        let dataValues = [billboardPred, nonchartingPred];
+        console.log(dataValues);
+        d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
+        d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
 
-      d3.select("#song-info").text(`"${songValue}" by ${artistValue}: ${decadeValue}`);
-    });
-    
-    
+        d3.select("#song-info").text(`"${songValue}" by ${artistValue}: ${decadeValue}`);
+        change_gauge(gaugeChart, "Gauge", dataValues);
+      });
   },
 );
 
 // adding dummy dropdown listener event
-const decadeInput = document.querySelector('#decade');
+let decadeInput = document.querySelector('#decade');
 
 decadeInput.addEventListener('change', (e) => {
   decadeValue = decadeInput.value
@@ -153,14 +151,13 @@ decadeInput.addEventListener('change', (e) => {
   // useModelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`
   decadeRawData = groupedDecades[decadeValue]
   let decadeData = cleanData(decadeRawData)
-  console.log(decadeData);
   radarChart.data.datasets[1].data = decadeData;
   radarChart.update();
 
 });
 
 // creating element that selects radar chart
-var canvasElement = document.getElementById('radar-compare');
+let canvasElement = document.getElementById('radar-compare');
 
 function setSelectedIndex(s, i){
 s.options[i-1].selected = true;
@@ -193,7 +190,7 @@ function createChart(initialDecade){
     }]
   };
   
-  var config = {
+  let config = {
     type: 'radar',
     data: data,
     options: {
@@ -205,7 +202,7 @@ function createChart(initialDecade){
     },
   };
   //var radarChart = new Chart(canvasElement, config);
-  var radarChart = new Chart(canvasElement, config);
+  let radarChart = new Chart(canvasElement, config);
   return radarChart
 };
 
@@ -257,7 +254,7 @@ const data = {
   }]
 };
 
-var config = {
+let config = {
   type: 'radar',
   data: data,
   options: {
@@ -267,8 +264,8 @@ var config = {
       }
     }
   },
-};
-var radarChart = new Chart(canvasElement, config);
+}
+let radarChart = new Chart(canvasElement, config);
 
 
 // function chartCreate (decadeInit){

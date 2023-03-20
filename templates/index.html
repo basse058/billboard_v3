@@ -5,65 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Billboard Hot 100: Audio Features</title>
+    <link rel="shortcut icon" type="image/jpg" href="../static/images/favicon.png"/>
 
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- D3 library -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
-    <!-- chart.js Library link -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+    <!-- Charts.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
     <!-- Links to our CSS, bootstrap -->
     <link rel="stylesheet" href="../static/css/style.css">
-    <!-- <link rel="stylesheet" type="text/html" href="static/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
   </head>
   
   <body>
-    <!-- <div class="wrapper"> -->
-      <div class="container-fluid wrapper">
-        <!-- Start row 1 -->
-        <div class="row">
-          <img src="../static/images/billboard-logo.png" id="bblogo">
-          <div class="col-md-12 jumbotron text-center mt-4 pt-1 bg-warning text-white rounded">
-            <div class="header-text" id="page-header">
-              <h1>Hot 100 Hits Predictor</h1>
+      <!-- <div class="wrapper"> -->
+    <div class="container-fluid wrapper">
+      <!-- Start row 1 -->
+      <div class="row">
+        <img src="../static/images/billboard-logo.png" id="bblogo">
+        <div class="col-md-12">
+          <div class="big-header">
+            <div class="text-center header-text rounded" id="page-header">
+              <h1>Hot 100 Hits Predicter</h1>
               <h6>An analysis of Spotify's audio features for all songs that topped Billboard's Hot 100 weekly charts throughout the decades.</h6>
-            </div>
-
-        <!-- End row 1-->
-        </div>
-        <!-- Start row 2 -->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <div class="panel-title">
-                    <h5>Dashboard Overview</h5>
-                  </div>
-                </div>
-                <div class="panel-body text-body">
-                  <text><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
-                    Separate machine learning models were trained on thousands of both charting and non-charting songs for each decade.<br>
-                    Each Support Vector Machine model was trained by analyzing labeled data for a binary classification.
-                    The "Predictions" panel displays the probability calculated by the model for each outcome. The data consists of all songs taken from 
-                    every weekly Billboard Hot 100 charts since its inception in 1958, and all audio features were pulled from Spotify's API.<br><br>
-                    <em><strong>Enter a song and artist name in the input box below and select a decade. Click "Submit" to get started!</strong></em>
-                  </text>
-                </div>
             </div>
           </div>
         </div>
+        <!-- End row 1-->
+      </div>
+      <!-- Start row 2 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="section-frame">
+            <div class="panel panel-primary" id="project-info">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <h5>Dashboard Overview</h5>
+                </div>
+              </div>
+              <div class="panel-body text-body">
+                <text><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
+                  Separate machine learning models were trained on thousands of both charting and non-charting songs for each decade.<br>
+                  Each Support Vector Machine model was trained by analyzing labeled data for a binary classification.
+                  The "Predictions" panel displays the probability calculated by the model for each outcome. The data consists of all songs taken from 
+                  every weekly Billboard Hot 100 charts since its inception in 1958, and all audio features were pulled from Spotify's API.<br><br>
+                  <em><strong>Enter a song and artist name in the input box below and select a decade. Click "Submit" to get started.</strong></em>
+                </text>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
         <!-- End row 2 -->
         <!-- Start row 3 -->
-        <div class="row">
-          <div class="col-md-6">
-
+      <div class="row">
+        <div class="col-md-6">
+          <div class="section-frame">
             <!-- Search Panel -->
-            <div class="panel panel-primary">
-
+            <div class="panel panel-primary float-center" id="song-select">
               <div class="panel-heading">
                 <h7 class="panel-title">Song and Decade Selection</h7>
-              </div>
+                </div>
               <div class="panel-body" id="enter-info">
                 <p>Enter a song/artist and select a decade to see if it would be a hit during that time period!</p>
                 <input type= "search" id= "search-song" label="Song" placeholder="Song">
@@ -79,13 +88,12 @@
                 </select>
               </div>
             </div>
-
           </div>
-          
-          
+        </div>
           <!-- End of panel -->
-          <div class="col-md-6">
-            <div class="panel" id="model-predictions">
+        <div class="col-md-6">
+          <div class="section-frame">
+            <div class="panel panel-primary  float-center" id="model-predictions">
               <div class="panel-heading">
                 <h7 class="panel-title">Predictions</h7>
               </div>
@@ -94,25 +102,33 @@
                 <p id="billboard-pred"><em>Select a song, artist, and decade, then click 'Submit'.</em></p>
                 <p id="noncharting-pred"></p>
               </div>
+
+              <div class="gauge-container container-fluid">
+                <canvas id="gauge-canvas"></canvas>
+              </div>
             </div>
           </div>
-
         </div>
-        <!-- End row 3 -->
-        <!-- Start row 4 -->
-        <div class="row">
-          <div class="col-md-6">
-            <div class="chart-container">
-              <div class="radar-frame">
+
+      </div>
+      <!-- End row 3 -->
+      <!-- Start row 4 -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="section-frame">
+            <div class="radar-container float-center">
+              <!-- <div class="radar-frame"> -->
                 <div class="chart-heading">
                   <h5 class="chart-title">Audio Feature Comparison</h5>
                 </div>
                 <canvas id="radar-compare"></canvas>
-              </div>
+              <!-- </div> -->
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="chart-container">
+        </div>
+        <div class="col-md-6">
+          <div class="section-frame">
+            <div class="chart-container float-center">
               <div class="chart-heading">
                 <h5 class="chart-title">Hot 100 Audio Features Through Time</h5>
               </div>
@@ -120,16 +136,18 @@
             </div>
           </div>
         </div>
-        <!-- End row 4 -->
-
       </div>
-      <!-- End of container -->
+      <!-- End row 4 -->
+
+    </div>
+    <!-- End of container -->
     <!-- </div> -->
 
     <!-- Linking JS to Bootstrap and all -->
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
     
     <!-- Linking to internal files-->
     <script type="text/javascript" src="../static/js/featuresByYear.js"></script>

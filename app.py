@@ -57,7 +57,7 @@ def data(decade):
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of all passenger names"""
+    """Return a list of song features for selected decade"""
     # Query all passengers
     results = session.query(bbaf.song, bbaf.artist, bbaf.release_year, bbaf.peak_rank, 
                             bbaf.weeks_on_board, bbaf.track_id, bbaf.danceability, bbaf.energy, 
@@ -67,7 +67,7 @@ def data(decade):
                             filter(bbaf.decade==decade).\
                             filter(bbaf.billboard==1).\
                             all()
-
+    print("HELLO", results)
     session.close()
 
 
@@ -114,7 +114,6 @@ def predict_track(song, artist, decade):
         feature_list.append(track_features_dict['tempo'])
         feature_list.append(track_features_dict['duration_ms'])
         feature_list = [feature_list]
-    print(feature_list)
     file_path = "./ML_models/"
     model_names = {"1960s": "model_1960s",
                 "1970s": "model_1970s",
