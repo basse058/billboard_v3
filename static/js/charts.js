@@ -153,10 +153,11 @@ let gaugeChart = new Chart(ctx, {
 
 
 function change_gauge(chart, label, data){
-    gaugeChart.data.datasets.forEach((dataset) => {
+    chart.data.datasets.forEach((dataset) => {
       if(dataset.label == label){
         dataset.data = data;
       }  
     });
-    gaugeChart.update();
+    chart.update();
+    return chart;
   }

@@ -283,7 +283,8 @@ def get_audio_features(id):
 
         # Create new dictionary with scaled features
         scaled_features_dict = {features_list[i]:scaled_features[i] for i in range(len(features_list))}
-        scaled_features_dict["song_info"] = [real_song, real_artist]
+        scaled_features_dict["song_name"] = real_song
+        scaled_features_dict["artist"] = real_artist
         # Return dictionary with scaled features
         return scaled_features_dict
     # Return none

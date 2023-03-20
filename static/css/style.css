@@ -43,14 +43,32 @@ html {
     align-self: center;
 }
 
-#bblogo, 
+/* #bblogo, 
 #project-info,
 #song-select,
 #model-predictions,
 .chart-container,
 .radar-container {
     background-color: white;
-    /* opacity: 70%; */
+    opacity: 70%;
+} */
+
+.panel-heading {
+    opacity: 100%;
+    background-color:darkgray;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+#song-select,
+#project-info,
+#model-predictions,
+#chart-container,
+#radar-container {
+    background-color: white;
+    opacity: 80%;
+    /* width= */
 }
 
 
@@ -72,12 +90,7 @@ html {
     height: 100%;
 }
 
-.panel-heading {
-    background-color:darkgray;
-    text-align:center;
-    margin-left:auto;
-    margin-right:auto;
-  }
+
 
 #featuresChart {
     height: 100%;
@@ -125,6 +138,7 @@ html {
 
 #page-header {
     background-color:#F4EA4D;
+    opacity: 80%;
     width:100%;
     height:100%;
     /* color: black; */
