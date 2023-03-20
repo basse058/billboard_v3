@@ -129,6 +129,7 @@ buttonSubmit.addEventListener("click", (event) => {
     let modelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`;
 
     d3.json(modelURL).then(function(data){
+      console.log("DAD",data);
         let billboardPred = data['Billboard'];
         let nonchartingPred = data['Noncharting'];
         let dataValues = [billboardPred, nonchartingPred];
@@ -136,8 +137,8 @@ buttonSubmit.addEventListener("click", (event) => {
         d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
         d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
 
-        d3.select("#song-info").text(`"${songValue}" by ${artistValue}: ${decadeValue}`);
-        change_gauge(gaugeChart, "Gauge", dataValues);
+        // d3.select("#song-info").text(`"${songValue}" by ${artistValue}: ${decadeValue}`);
+        change_gauge(gaugeChart, "Gauge",dataValues);
       });
   },
 );
@@ -148,7 +149,7 @@ let decadeInput = document.querySelector('#decade');
 decadeInput.addEventListener('change', (e) => {
   decadeValue = decadeInput.value
   // console.log("Decade:", decadeValue);
-  // useModelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`
+  useModelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`
   decadeRawData = groupedDecades[decadeValue]
   let decadeData = cleanData(decadeRawData)
   radarChart.data.datasets[1].data = decadeData;

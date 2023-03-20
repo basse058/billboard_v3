@@ -10,7 +10,7 @@ html {
 */
 
 .big-header {
-    height: 100px;
+    height: 120px;
     width: 100%;
     border-style: solid;
     border-radius: 9px;
@@ -39,6 +39,9 @@ html {
     background-size: cover;
 }
 
+#project-info {
+    align-self: center;
+}
 
 #bblogo, 
 #project-info,
@@ -52,18 +55,19 @@ html {
 
 
 .section-frame {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
     border-style: solid;
-    border-radius: 9px;
-    border-width: 7px;
+    border-radius: 10px;
+    border-width: 8px;
     border-color: darkgray;
-    /* margin-top:20px;
-    margin-bottom:20px; */
+    margin-top:10px;
+    /* margin-bottom: 10px; */
+    text-align:center;
 }
 
 .panel {
-    /* margin: 10px; */
+    /* margin-top: 10px; */
     width: 100%;
     height: 100%;
 }
@@ -71,6 +75,8 @@ html {
 .panel-heading {
     background-color:darkgray;
     text-align:center;
+    margin-left:auto;
+    margin-right:auto;
   }
 
 #featuresChart {
@@ -110,12 +116,12 @@ html {
     padding-top:0px;
 } */
 
-.chart-heading {
+/* .chart-heading {
     text-align: center;
     margin-top: 5px;
     margin-bottom:0px;
     padding-bottom:0px;
-}
+} */
 
 #page-header {
     background-color:#F4EA4D;
