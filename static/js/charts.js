@@ -50,7 +50,6 @@ let acousticnessData = {
     data: acousticness,
     lineTension: 0,
     fill: false
-    // borderColor: 'blue'
 };
   
 let livenessData = {
@@ -58,7 +57,6 @@ let livenessData = {
     data: liveness,
     lineTension: 0,
     fill: false
-    // borderColor: 'blue'
 };
 
 let featuresYearlyData = {
@@ -68,14 +66,14 @@ let featuresYearlyData = {
   };
 
 let chartOptions = {
-legend: {
-    display: true,
-    position: 'top',
-    labels: {
-        boxWidth: 80,
-        fontColor: 'black'
+    legend: {
+        display: true,
+        position: 'top',
+        labels: {
+            boxWidth: 80,
+            fontColor: 'black'
+        }
     }
-}
 };
 
 let lineChart = new Chart(featuresCanvas, {

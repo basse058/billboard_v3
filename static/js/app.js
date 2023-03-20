@@ -99,20 +99,25 @@ buttonSubmit.addEventListener("click", (event) => {
 
     songValue = songInput.value
     artistValue = artistInput.value
+    
 
     if (!songValue || !artistValue) {
       console.log('missing value')
       return
     }
-    else {
-      songUrl = `/search_spotify/${songValue}/${artistValue}`
 
+    else {
+      let songUrl = `/search_spotify/${songValue}/${artistValue}`
+    
+      // DOES NOT RETURN CORRECT SONG INFO
       d3.json(songUrl).then(function(data){
-        let searchSpotifyData = {}
-        searchSpotifyData = data;
+        console.log(data);
+        let searchSpotifyData = data;
+        console.log("URL", songUrl)
+        console.log("SONGINFO",data['song_info'][0]);
         songData = cleanData(searchSpotifyData)
         radarChart.data.datasets[0].data = songData;
-        console.log(songData)
+        // console.log(songData)
         radarChart.update();
         });
       }
@@ -121,17 +126,18 @@ buttonSubmit.addEventListener("click", (event) => {
     decadeValue = decadeSelection.value;
 
     let modelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`;
-    console.log(modelURL);
 
     d3.json(modelURL).then(function(data){
       let modelData = {}
       modelData = data;
-
+      
       let billboardPred = modelData['Billboard']
       let nonchartingPred = modelData['Noncharting']
       console.log(billboardPred)
       d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
       d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
+
+      d3.select("#song-info").text(`"${songValue}" by ${artistValue}: ${decadeValue}`);
     });
     
     
@@ -229,7 +235,7 @@ function createChart(initialDecade){
 const data = {
   labels: songFeatures,
   datasets: [{
-    label: 'songs',
+    label: 'Song',
     data: [1,2,3,4,5,6],
     fill: true,
     backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -239,7 +245,7 @@ const data = {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: 'rgb(255, 99, 132)'
   }, {
-    label: 'Decade Name',
+    label: 'Decade',
     data: [5,3,2,1,2,3],
     fill: true,
     backgroundColor: 'rgba(54, 162, 235, 0.2)',

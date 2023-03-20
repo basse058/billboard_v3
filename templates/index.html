@@ -20,16 +20,39 @@
   
   <body>
     <!-- <div class="wrapper"> -->
-      <div class="container-fluid">
+      <div class="container-fluid wrapper">
+        <!-- Start row 1 -->
         <div class="row">
-          <div class="title_name">
-            <h1>Hit Song Predictor</h1>
-            <h6>An exploration of Spotify's audio features for all weekly Billboard charting songs throughout the decades.</h6>
-          </div>
-        <!-- end of row1-->
-        </div>
+          <img src="../static/images/billboard-logo.png" id="bblogo">
+          <div class="col-md-12 jumbotron jumbotron text-center mt-4 pt-1 bg-secondary text-white rounded">
+            <div class="header-text">
+              <h1>Top 100 Hits Predictor</h1>
+              <h6>An exploration of Spotify's audio features for all weekly Billboard charting songs throughout the decades.</h6>
+            </div>
 
-        <!-- start of row2 -->
+        <!-- End row 1-->
+        </div>
+        <!-- Start row 2 -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    <h5>Dashboard Overview</h5>
+                  </div>
+                </div>
+                <div class="panel-body text-body">
+                  <p><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
+                    Separate machine learning models were trained on thousands of both charting and non-charting songs for each decade.
+                    Each Support Vector Machine model was trained by analyzing labeled data for a binary classification.
+                    The "Predictions" panel displays the probability calculated by the model for each outcome.<br>
+                    Enter a song and artist name in the input box below and select a decade. Click "Submit" to get started!</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- End row 2 -->
+        <!-- Start row 3 -->
         <div class="row">
           <div class="col-md-6">
 
@@ -65,19 +88,23 @@
                 <h7 class="panel-title">Predictions</h7>
               </div>
               <div class="panel-body">
-                <p id="billboard-pred">Billboard Probability:</p>
-                <p id="noncharting-pred">Noncharting Probability:</p>
+                <h9 id="song-info"></h9>
+                <p id="billboard-pred"><em>Select a song, artist, and decade, then click 'Submit'.</em></p>
+                <p id="noncharting-pred"></p>
               </div>
             </div>
           </div>
 
         </div>
-        <!-- end of row2 -->
-
+        <!-- End row 3 -->
+        <!-- Start row 4 -->
         <div class="row">
           <div class="col-md-6">
             <div class="chart-container">
               <div class="radar-frame">
+                <div class="chart-heading">
+                  <h5 class="chart-title">Audio Feature Comparison</h5>
+                </div>
                 <canvas id="radar-compare"></canvas>
               </div>
             </div>
@@ -85,11 +112,15 @@
           <div class="col-md-6">
             <div class="chart-container">
               <div class="featuresChart-frame"> 
+                <div class="chart-heading">
+                  <h5 class="chart-title">Audio Features Over Time</h5>
+                </div>
                 <canvas id="featuresChart"></canvas>
               </div>
             </div>
           </div>
         </div>
+        <!-- End row 4 -->
 
       </div>
       <!-- End of container -->
