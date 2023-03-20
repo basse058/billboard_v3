@@ -126,7 +126,8 @@ buttonSubmit.addEventListener("click", (event) => {
         const response = await fetch(songUrl);
         const data = await response.json();
         console.log(data);
-      }
+        d3.select("#song-info").text(`"${songName}" by ${artistName}: ${decadeValue}`);
+        }
       }
     
     let decadeSelection = document.querySelector('#decade');
