@@ -66,6 +66,14 @@ let featuresYearlyData = {
   };
 
 let chartOptions = {
+    scales: {
+        y: {
+            title: {
+                display: true,
+                text: 'Yearly Median Value'
+            }
+        }
+    },
     legend: {
         display: true,
         position: 'top',
