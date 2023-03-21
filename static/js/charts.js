@@ -92,9 +92,10 @@ const lineChart = new Chart(featuresCanvas, {
 });
 
 /////////////////////////////////////
+
 let ctx = document.getElementById('gauge-canvas').getContext('2d');;
-    // ctx.clear();
-    
+// ctx.clear();
+
 let gaugeChart = new Chart(ctx, {
     type:"doughnut",
     data: {
@@ -118,7 +119,6 @@ let gaugeChart = new Chart(ctx, {
                 backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 borderColor: '#ffffff',
                 color: function(context) {
-                    console.log("CONTEXT", context);
                     return context.dataset.backgroundColor;
                 },
                 font: function(context) {
@@ -153,11 +153,11 @@ let gaugeChart = new Chart(ctx, {
 
 
 function change_gauge(chart, label, data){
+    console.log("CHANGE_GAUGE", chart,label,data);
     chart.data.datasets.forEach((dataset) => {
       if(dataset.label == label){
         dataset.data = data;
       }  
     });
     chart.update();
-    return chart;
-  }
+}
