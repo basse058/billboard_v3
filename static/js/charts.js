@@ -67,6 +67,7 @@ let featuresYearlyData = {
   };
 
 let chartOptions = {
+    maintainAspectRatio: false,
     scales: {
         y: {
             title: {
@@ -94,7 +95,6 @@ const lineChart = new Chart(featuresCanvas, {
 /////////////////////////////////////
 
 let ctx = document.getElementById('gauge-canvas').getContext('2d');;
-// ctx.clear();
 
 let gaugeChart = new Chart(ctx, {
     type:"doughnut",
@@ -102,7 +102,7 @@ let gaugeChart = new Chart(ctx, {
         labels : ["Billboard Hit","Non-Charting"],
         datasets: [{
             label: "Gauge",
-            data : [.5,.5],
+            data : [.902,.098],
             backgroundColor: ["#56AADD",
                                 "#f4974d"
             ]
@@ -113,33 +113,32 @@ let gaugeChart = new Chart(ctx, {
         maintainAspectRatio: false,
         circumference: 180,
         rotation : -90,
-        cutoutPercentage : 80, // precent
+        cutoutPercentage : 80,
         plugins: {
             datalabels: {
+                display: 'true',
+                // color: 'white',
+                formatter: function (value, context) {
+                    return context.chart.data.labels[
+                        context.dataIndex
+                    ];
+                },
                 backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 borderColor: '#ffffff',
                 color: function(context) {
                     return context.dataset.backgroundColor;
                 },
-                font: function(context) {
-                    var w = context.chart.width;
-                    return {
-                        size: w < 512 ? 18 : 20
-                    }
-                },
-                align: 'start',
-                anchor: 'start',
+                // font: function(context) {
+                //     var w = context.chart.width;
+                //     return {
+                //         size: w < 512 ? 18 : 20
+                //     }
+                // },
+                align: 'end',
+                anchor: 'end',
                 offset: 0,
                 borderRadius: 4,
-                borderWidth: 1,
-                formatter: function(value, context) {
-                    var i = context.dataIndex;
-                    var len = context.dataset.data.length - 1;
-                    if(i == len){
-                        return null;
-                    }
-                    return value;
-                }
+                borderWidth: 1
             }
         },
         legend: {
@@ -153,7 +152,6 @@ let gaugeChart = new Chart(ctx, {
 
 
 function change_gauge(chart, label, data){
-    console.log("CHANGE_GAUGE", chart,label,data);
     chart.data.datasets.forEach((dataset) => {
       if(dataset.label == label){
         dataset.data = data;

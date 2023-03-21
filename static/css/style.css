@@ -2,6 +2,11 @@ html {
     background-color: black;
 }
 
+* {
+    /* font-size: 100%; */
+    font-family: monospace;
+   }
+
 /* 
 #D42E2A RED
 #F4EA4D YELLOW
@@ -15,109 +20,124 @@ html {
     border-style: solid;
     border-radius: 9px;
     border-width: 7px;
-    border-color: darkgray;
+    border-color: rgb(150,150,150);
     margin-top: 10px;
-    /* margin-top:20px;
-    margin-bottom:20px; */
 }
 
 .jumbotron {
-    /* margin-bottom: 10px; */
-    background-color:#F4EA4D;
-    width:100%;
-    height:100%;
+    margin-bottom: 10px;
+    width:auto;
+    height:auto;
 }
 
 .wrapper {
-    /* position: relative; */
-    background-image: url("../images/concert.jpg");
-    width: 100vw;
-    height: 120vh;
-    /* opacity: 0.2; */
+    position: relative;
+    background-image: url("../images/concert_bw.jpg");
+    width: 90vw;
+    height: 180vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-#project-info {
-    align-self: center;
+.pred-text {
+    text-align: center;
 }
 
-/* #bblogo, 
-#project-info,
-#song-select,
-#model-predictions,
-.chart-container,
-.radar-container {
-    background-color: white;
-    opacity: 70%;
-} */
+#decade-value {
+    font-size:20px;
+    text-align:center;
+}
 
 .panel-heading {
     opacity: 100%;
-    background-color:darkgray;
+    background-color:rgb(150,150,150);
     text-align:center;
     margin-left:auto;
     margin-right:auto;
   }
 
+#song-info{
+    font-size: 15px;
+}
+
+#decade-value {
+    text-align: center;
+}
+
+#album-image {
+    margin: 10px;
+    padding: 5px;
+    height: 150px;
+}
+
 #song-select,
 #project-info,
 #model-predictions,
 #chart-container,
-#radar-container {
+#radar-container,
+#selected-song {
     background-color: white;
+    padding: 5px;
+    padding-bottom:10px;
     opacity: 90%;
     /* width= */
 }
 
-
 .section-frame {
-    height: auto;
+    /* height: auto; */
     width: auto;
     border-style: solid;
     border-radius: 10px;
     border-width: 8px;
-    border-color: darkgray;
-    margin-top:10px;
+    border-color: rgb(150,150,150);
+    margin-top:20px;
     /* margin-bottom: 10px; */
     text-align:center;
+
 }
 
-.panel {
-    /* margin-top: 10px; */
+.chart-frame {
+    /* height: auto;
+    width: auto; */
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 8px;
+    border-color: rgb(150,150,150);
+    margin-top:20px;
+    opacity: 90%;
+    height: 600px;
+    /* margin-bottom: 10px; */
+    text-align:center;
+    margin-bottom: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/* .panel {
+    margin-top: 10px;
     width: 100%;
     height: 100%;
-}
-
-
+} */
 
 #featuresChart {
     height: 100%;
     width: 100%;
 }
 
-
-#bblogo {
-    height: 50;
-}
-
 .panel-title{
     color: white;
+    font-size:20px;
 }
 
-.chart-container,
-.radar-container {
+#chart-container,
+#radar-container {
     /* margin-top:20px; */
     padding:20px;
     width: 100%;
     height: 100%;
-}
+}   
 
-
-.panel-title {
-    font-size:20px;
-}
 
 /* h5 {
     text-align:center;
@@ -138,11 +158,19 @@ html {
 
 #page-header {
     background-color:#F4EA4D;
-    opacity: 90%;
+    opacity: 80%;
     width:100%;
     height:100%;
     /* color: black; */
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+}
+
+h1 {
+    font-size: 100px;
+}
+
+.bg-dark {
+    opacity: 70%;
 }
 
 #bblogo {
@@ -150,6 +178,9 @@ html {
     width: 60%;
     margin-left:auto;
     margin-right:auto;
+    background-color: rgb(256,256,256,.5);
+    border-radius: 10px;
+    opacity:80%
 }
 
 .text-body {
@@ -164,13 +195,13 @@ html {
     position:relative;
     height: 100%;
     margin: 0 auto;
-    width: 100%;
+    width: auto;
     max-height: 200px;
     /* padding: 20px; */
 }
 
-#gauge-canvas {
+/* #gauge-canvas {
     position: inherit;
-    width: 100%;
+    width: auto;
     height: 100%;
-}
+} */

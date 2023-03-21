@@ -255,7 +255,7 @@ def get_track_features(song_title, artist):
         if found_id:
             return get_audio_features(found_id)
         
-        return "No results found!"
+        return False
 
 # Returns dictionary of scaled audio features from Spotify for specified track_id
 def get_audio_features(id):
@@ -263,6 +263,7 @@ def get_audio_features(id):
     name_results = sp.track(id)
     real_artist = name_results['artists'][0]['name']
     real_song = name_results['name']
+    album_image = name_results['album']['images'][1]
     # Create list of desired audio features
     features_list = ['danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 
                    'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms']
@@ -285,6 +286,7 @@ def get_audio_features(id):
         scaled_features_dict = {features_list[i]:scaled_features[i] for i in range(len(features_list))}
         scaled_features_dict["song_name"] = real_song
         scaled_features_dict["artist"] = real_artist
+        scaled_features_dict['image'] = album_image
         # Return dictionary with scaled features
         return scaled_features_dict
     # Return none

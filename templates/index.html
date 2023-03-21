@@ -9,6 +9,7 @@
         <!-- D3 library -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
 
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> -->
         <!-- chart.js Library link -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         
@@ -27,41 +28,40 @@
         <img src="../static/images/billboard-logo.png" id="bblogo">
         <div class="col-md-12">
           <div class="big-header d-flex justify-content-center">
-            <div class="jumbotron text-center header-text rounded" id="page-header">
-              <h1>Hot 100 Hits Predicter</h1>
-              <h6>An analysis of Spotify's audio features for all songs that topped Billboard's Hot 100 weekly charts throughout the decades.</h6>
+            <div class="jumbotron text-center rounded" id="page-header">
+              <h1>Billboard Top 100 Hits Predictions</h1>
+              <h6>An analysis of Spotify's audio features for all songs on Billboard's Hot 100 weekly charts through the decades.</h6>
             </div>
           </div>
         </div>
-        <!-- End row 1-->
       </div>
-      <!-- Start row 2 -->
+      <!-- End row 1-->
       <div class="row">
-        <div class="col-md-12 text-center">
-          <div class="section-frame">
-            <div class="panel panel-primary" id="project-info">
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <h5>Dashboard Overview</h5>
-                </div>
-              </div>
-              <div class="panel-body text-body">
-                <text><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
+        <div class="pos-f-t">
+          <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+              <h4 class="text-white">About the Dashboard</h4>
+              <span class="text-muted">
+                <text class="text-white"><strong>What do a song's audio features have to do with its popularity over time? Can they be used to "predict" a hit?</strong><br>
                   Separate machine learning models were trained on thousands of both charting and non-charting songs for each decade.<br>
                   Each Support Vector Machine model was trained by analyzing labeled data for a binary classification.
                   The "Predictions" panel displays the probability calculated by the model for each outcome. The data consists of all songs taken from 
                   every weekly Billboard Hot 100 charts since its inception in 1958, and all audio features were pulled from Spotify's API.<br><br>
-                  <em><strong>Enter a song and artist name in the input box below and select a decade. Click "Submit" to get started.</strong></em>
+                  <em><strong>Enter a song and artist name in the input box below and select a decade. Click "Submit" to get see the results!</strong></em>
                 </text>
-              </div>
+              </span>
             </div>
           </div>
+          <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon glyphicon glyphicon-info-sign"></span>
+            </button>
+          </nav>
         </div>
       </div>
-        <!-- End row 2 -->
-        <!-- Start row 3 -->
+        <!-- Start row 2 -->
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
           <div class="section-frame padding-top-10">
             <!-- Search Panel -->
             <div class="panel panel-primary" id="song-select">
@@ -73,7 +73,6 @@
                 <input type= "search" id= "search-song" label="Song" placeholder="Song">
                 <input type= "search" id= "search-artist" label="Artist" placeholder="Artist">
                 <select id="decade">
-                  <!-- <option value="">Select Decade</option> -->
                   <option value="1960s">1960s</option>
                   <option value="1970s">1970s</option>
                   <option value="1980s">1980s</option>
@@ -81,25 +80,40 @@
                   <option value="2000s">2000s</option>
                   <option value="2010s">2010s</option>
                 </select>
-                <button class="btn btn-primary" type="submit" id=submit name="submit">Submit</button>
+                <button class="btn btn-info" type="submit" id=submit name="submit">Submit</button>
+              </div>
+            </div>
+          </div>
+          <div class="section-frame">
+            <div class="panel panel-primary" id="selected-song">
+              <div class="panel-heading">
+                <h7 class="panel-title">Selected Song</h7>
+              </div>
+              <div class="panel-body">
+                <p id="song-value"></p>
+                <p id="song-info"></p>
+                <p id="artist-value"></p>
+                <p id="audio-features"></p>
+                <img id="album-image" src=""/>
               </div>
             </div>
           </div>
         </div>
           <!-- End of panel -->
-        <div class="col-md-6">
+        <div class="col-md-7">
           <div class="section-frame">
             <div class="panel panel-primary  float-center" id="model-predictions">
               <div class="panel-heading">
-                <h7 class="panel-title">Predictions</h7>
+                <h7 class="panel-title">Machine Learning Predictions</h7>
               </div>
-              <div class="panel-body">
-                <h9 id="song-info"></h9>
+              <div class="panel-body pred-text">
+                <p><strong>How closely do the audio features fit with chart topping songs from the decade?</strong></p>
+                <p id="decade-value"></p>
                 <p id="billboard-pred"><em>Select a song, artist, and decade, then click 'Submit'.</em></p>
                 <p id="noncharting-pred"></p>
               </div>
 
-              <div class="gauge-container container-fluid">
+              <div class="gauge-container">
                 <canvas id="gauge-canvas"></canvas>
               </div>
             </div>
@@ -111,7 +125,7 @@
       <!-- Start row 4 -->
       <div class="row">
         <div class="col-md-6">
-          <div class="section-frame">
+          <div class="chart-frame">
             <div class="float-center" id="radar-container">
               <!-- <div class="radar-frame"> -->
                 <div class="chart-heading">
@@ -123,10 +137,10 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="section-frame">
+          <div class="chart-frame">
             <div class="float-center" id="chart-container">
               <div class="chart-heading">
-                <h5 class="chart-title">Hot 100 Audio Features Through Time</h5>
+                <h5 class="chart-title">Chart-Topping Audio Features Through Time</h5>
               </div>
               <canvas id="featuresChart"></canvas>
             </div>
