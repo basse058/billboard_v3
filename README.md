@@ -1,7 +1,5 @@
 # Billboard-Top-100-project
 
-# **Project_4_Team_2**
-
 ## Project 4 for UMN Data Bootcamp for Team 2
 
 #### **Team members:** Cody Bassett, Glen Dagger, Juan Marin, Taylor Marino
