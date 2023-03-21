@@ -8,7 +8,7 @@
 
 #### Live Github Pages link: 
 
-### **Our Site **:
+### Our Site:
 
 #### Our group created a website that predicts if a song would be a top billboard charting song in a specific decade based on its Spotify song features. A user can input any song/artist and a specific decade, then the site will present a percentage of how likely it is of being a top charting song during that timeframe. 
 
@@ -24,7 +24,7 @@ The data we used for this website was a Kaggle dataset that gathered 1.2 million
 
 ##### Below are our datasets:
 
--Spotify API 
+-  Spotify API 
  https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features
 -  Spotify song Kaggle Dataset
 https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs
