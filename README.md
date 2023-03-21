@@ -14,7 +14,7 @@
 
 - In order to create this website we started off by compiling Spotify song features from the top 100 charting songs in every decade from 1960-2010. While also gathering the Spotify song features for songs in each decade that were not top charting songs. After organizing the features for non charting and charting songs we created a database to store all of it. We then trained a machine learning model in every decade to use the common song features of the top charting songs to determine what features a hit song needs. 
 - _____
--_____
+- _____
 
 ### **Data**
 
