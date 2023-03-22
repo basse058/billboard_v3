@@ -1,52 +1,9 @@
 let useModelData = {};
 let searchSpotifyData = {};
 let decadeValue = null;
-let songValue = null;
-let artistValue = null;
+let songName = null;
+let artistName = null;
 let cleanFeatureData = [];
-
-// defining a dummy json output when we search a song or click for a decade
-let calledFeatures = {
-  "danceability": 0.614,
-  "energy": 0.809,
-  "key": 9,
-  "loudness": -4.749,
-  "mode": 1,
-  "speechiness": 0.0738,
-  "acousticness": 0.0105,
-  "instrumentalness": 0.000353,
-  "liveness": 0.148,
-  "valence": 0.354,
-  "tempo": 112.023,
-  "type": "audio_features",
-  "id": "2oap3QptGISyIvwKpnJJId",
-  "uri": "spotify:track:2oap3QptGISyIvwKpnJJId",
-  "track_href": "https://api.spotify.com/v1/tracks/2oap3QptGISyIvwKpnJJId",
-  "analysis_url": "https://api.spotify.com/v1/audio-analysis/2oap3QptGISyIvwKpnJJId",
-  "duration_ms": 176774,
-  "time_signature": 4
-};
-
-let decadeRawData = {
-  "danceability": 1.6,
-  "energy": 2.809,
-  "key": 1,
-  "loudness": -1.749,
-  "mode": 2,
-  "speechiness": 0.0453,
-  "acousticness": 0.0305,
-  "instrumentalness": 0.0043,
-  "liveness": 0.2,
-  "valence": 0.1,
-  "tempo": 112,
-  "type": "audio_features",
-  "id": "2oap3QptGISyIvwKpnJJId",
-  "uri": "spotify:track:2oap3QptGISyIvwKpnJJId",
-  "track_href": "https://api.spotify.com/v1/tracks/2oap3QptGISyIvwKpnJJId",
-  "analysis_url": "https://api.spotify.com/v1/audio-analysis/2oap3QptGISyIvwKpnJJId",
-  "duration_ms": 176774,
-  "time_signature": 4
-}
 
 // starting out by pre-determing the song features to be measured on the radar chart
 let songFeatures = [
@@ -57,20 +14,6 @@ let songFeatures = [
   'acousticness',
   'liveness'
 ]
-
-let decadeFeatures = [
-  'danceability',
-  'energy',
-  'loudness',
-  'speechiness',
-  'acousticness',
-  'instrumentalness',
-  'liveness',
-  'valence',
-  'tempo',
-  'duration_ms'
-]
-
 
 // function to clean data, assuming it will be aiight
 function cleanData(featureData){
@@ -85,94 +28,89 @@ function cleanData(featureData){
   return cleanFeatureData
 };
 
-// creating dummy listening event for when a user searches for a song
-const songInput = document.querySelector('#search-song');
-const artistInput = document.querySelector('#search-artist');
-const buttonSubmit = document.querySelector('#submit');
+// Store values from HTML elements for listening events
+let songInput = document.querySelector('#search-song');
+let artistInput = document.querySelector('#search-artist');
+let buttonSubmit = document.querySelector('#submit');
+let decadeInput = document.querySelector('#decade');
 
-//put on button instead of search
-// call in the pre-created bars into the event listener
+
+// Add event listener to Search button that collects values from input boxes and updates charts/predictions
 buttonSubmit.addEventListener("click", (event) => {
-    // if song box is empty, return 'you need to fill this in
-    // if artist box is empty, return 'you need to fill this in too'
-    // else, return song name, artist name 
+  let selectSong = songInput.value;
+  let selectArtist = artistInput.value;
+  let selectDecade = decadeInput.value;
 
-    songValue = songInput.value
-    artistValue = artistInput.value
-    
+  // Check that both values have been entered
+  if (!selectSong || !selectArtist) {
+    window.alert("Please enter a song and artist!");
+    return
+  }
 
-    if (!songValue || !artistValue) {
-      console.log('missing value')
-      return
-    }
+  // Runs when both values entered in input boxes to update charts/predictions
+  else {
+    let songUrl = `/search_spotify/${selectSong}/${selectArtist}`
 
-    else {
-      let songUrl = `/search_spotify/${songValue}/${artistValue}`
-    
-      // DOES NOT RETURN CORRECT SONG INFO
-      d3.json(songUrl).then(function(data){
-        console.log(data);
-        let searchSpotifyData = data;
-        console.log("URL", songUrl)
-        console.log("SONGINFO",data['song_info'][0]);
-        songData = cleanData(searchSpotifyData)
-        radarChart.data.datasets[0].data = songData;
-        // console.log(songData)
-        radarChart.update();
-        });
-      }
-    
-    let decadeSelection = document.querySelector('#decade');
-    decadeValue = decadeSelection.value;
-
-    let modelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`;
-
-    d3.json(modelURL).then(function(data){
-      let modelData = {}
-      modelData = data;
-      
-      let billboardPred = modelData['Billboard']
-      let nonchartingPred = modelData['Noncharting']
-      console.log(billboardPred)
-      d3.select("#billboard-pred").text(`Billboard Top 100: ${billboardPred}%`);
-      d3.select("#noncharting-pred").text(`Non-charting: ${nonchartingPred}%`);
-
-      d3.select("#song-info").text(`"${songValue}" by ${artistValue}: ${decadeValue}`);
+    d3.json(songUrl).then(function(data){
+      songData = cleanData(data)
+      radarChart.data.datasets[0].data = songData;
+      let realSongName = data['song_name'];
+      let realArtistName = data['artist'];
+      let imageUrl = data['image']['url'];
+      updatePredictions(realSongName, realArtistName, selectDecade, imageUrl);
+      radarChart.update();
     });
-    
-    
-  },
-);
+  }
+});
 
-// adding dummy dropdown listener event
-const decadeInput = document.querySelector('#decade');
-
+// Add event listener to decade dropdown element
 decadeInput.addEventListener('change', (e) => {
+  songInput = document.querySelector('#search-song');
+  artistInput = document.querySelector('#search-artist');
+  decadeInput = document.querySelector('#decade');
+  
   decadeValue = decadeInput.value
-  // console.log("Decade:", decadeValue);
-  // useModelURL = `/use_model/${songValue}/${artistValue}/${decadeValue}`
-  decadeRawData = groupedDecades[decadeValue]
-  let decadeData = cleanData(decadeRawData)
-  console.log(decadeData);
-  radarChart.data.datasets[1].data = decadeData;
-  radarChart.update();
+  song=songInput.value
+  artist = artistInput.value
 
+  let decadeRawData = groupedDecades[decadeValue];
+  let decadeData = cleanData(decadeRawData);
+  radarChart.data.datasets[1].data = decadeData;
+  // updatePredictions(song, artist, decadeValue);
+  radarChart.update();
 });
 
 // creating element that selects radar chart
-var canvasElement = document.getElementById('radar-compare');
+let canvasElement = document.getElementById('radar-compare');
 
-function setSelectedIndex(s, i){
-s.options[i-1].selected = true;
-return;
+// Updates predictions panel and gauge chart
+function updatePredictions(song, artist, decadeValue, imageUrl) {
+  let modelURL = `/use_model/${song}/${artist}/${decadeValue}`;
+  d3.json(modelURL).then(function(data){
+      let billboardPred = data['Billboard'];
+      let nonchartingPred = data['Noncharting'];
+      let dataValues = [billboardPred, nonchartingPred];
+      // Update Predictions
+      d3.select("#billboard-pred").text(`Billboard Top 100: ${Math.round(billboardPred)}%`);
+      d3.select("#noncharting-pred").text(`Non-charting: ${Math.round(nonchartingPred)}%`);
+      // Update Song Info panel
+      d3.select("#song-info").text(`"${song}" by ${artist}`);
+      // d3.select("#song-value").text(`Song: "${song}"`);
+      // d3.select("#artist-value").text(`Artist: "${artist}"`);
+      d3.select("#decade-value").text(`${decadeValue} Feature Predicter`);
+      
+      document.getElementById("album-image").src=imageUrl;
+      change_gauge(gaugeChart, "Gauge", dataValues);
+    });
 }
 
-function createChart(initialDecade){
-  const data = {
+// Initialize Radar chart
+function createRadar(songData, decadeData) {
+  let data = {
     labels: songFeatures,
     datasets: [{
-      label: 'songs',
-      data: [1,2,3,4,5,6],
+      label: 'Song',
+      data: songData,
       fill: true,
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderColor: 'rgb(255, 99, 132)',
@@ -180,9 +118,10 @@ function createChart(initialDecade){
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(255, 99, 132)'
-    }, {
-      label: `${initialDecade}`,
-      data: [5,3,2,1,2,3],
+      }, 
+      {
+      label: 'Decade',
+      data: decadeData,
       fill: true,
       backgroundColor: 'rgba(54, 162, 235, 0.2)',
       borderColor: 'rgb(54, 162, 235)',
@@ -191,9 +130,9 @@ function createChart(initialDecade){
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgb(54, 162, 235)'
     }]
-  };
-  
-  var config = {
+  }
+
+  let config = {
     type: 'radar',
     data: data,
     options: {
@@ -202,88 +141,44 @@ function createChart(initialDecade){
           borderWidth: 3
         }
       }
-    },
-  };
-  //var radarChart = new Chart(canvasElement, config);
-  var radarChart = new Chart(canvasElement, config);
-  return radarChart
-};
-
-// creating dummy song data as i expect the output to be like 
-// let song_data = [];
-// for (let k in songFeatures) {
-//   for (let j in calledFeatures){
-//     if (j == songFeatures[k]) {
-//       song_data.push(calledFeatures[j])
-//     };
-//   };
-// };
-// console.log(song_data)
-
-// //creating dummy decade data as i expect the output to be like 
-// let decadeData = []
-// for (let k in songFeatures) {
-//   for (let v in decadeRawData){
-//     if (v == songFeatures[k]) {
-//       decadeData.push(decadeRawData[v])
-//     };
-//   };
-// };
-
-
-//dummy chart
-const data = {
-  labels: songFeatures,
-  datasets: [{
-    label: 'Song',
-    data: [1,2,3,4,5,6],
-    fill: true,
-    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-    borderColor: 'rgb(255, 99, 132)',
-    pointBackgroundColor: 'rgb(255, 99, 132)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(255, 99, 132)'
-  }, {
-    label: 'Decade',
-    data: [5,3,2,1,2,3],
-    fill: true,
-    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-    borderColor: 'rgb(54, 162, 235)',
-    pointBackgroundColor: 'rgb(54, 162, 235)',
-    pointBorderColor: '#fff',
-    pointHoverBackgroundColor: '#fff',
-    pointHoverBorderColor: 'rgb(54, 162, 235)'
-  }]
-};
-
-var config = {
-  type: 'radar',
-  data: data,
-  options: {
-    elements: {
-      line: {
-        borderWidth: 3
-      }
     }
-  },
-};
-var radarChart = new Chart(canvasElement, config);
-
-
-// function chartCreate (decadeInit){
-  
-// }
-
-//13 features selection box selection
-
-// textboxes to select values for features you care sbout with the values you care about
+  };
+  canvasElement = document.getElementById('radar-compare');
+  radarChart = new Chart(canvasElement, config);
+}
 
 //initializing charts right off the bat so it is there when page loads
-// function init() {
-//   // d3.json(url).then(function (data) {
-//   //     chartCreate(data[0].spot);
-//   // })
-//   chartCreate(setSelectedIndex(document.querySelector("#greet"),1));
-// };
-// init();
+function init() {
+  let initialDecade = "1960s";
+  let intialImageUrl = 'https://i.scdn.co/image/ab67616d00001e02e464904cc3fed2b40fc55120'
+  let initialSong = "Changes"
+  let initialArtist = "David Bowie"
+  
+  if (!initialSong || !initialArtist) {
+    console.log('missing value')
+    return
+  }
+
+  else {
+    let songUrl = `/search_spotify/${initialSong}/${initialArtist}`
+
+    d3.json(songUrl).then(function(data){
+
+      songData = cleanData(data)
+
+      let realSongName = data['song_name']
+      let realArtistName = data['artist']
+      let image = data['image']['url']
+      
+      updatePredictions(realSongName, realArtistName, initialDecade, intialImageUrl);
+      // change_gauge(gaugeChart, "Gauge", songData);
+
+      let initialDecadeRawData = groupedDecades[initialDecade];
+      let initialDecadeData = cleanData(initialDecadeRawData);
+      createRadar(songData,initialDecadeData);
+    });
+  }
+}
+
+// Initialize charts
+init();

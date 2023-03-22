@@ -57,7 +57,7 @@ def data(decade):
     # Create our session (link) from Python to the DB
     session = Session(engine)
 
-    """Return a list of all passenger names"""
+    """Return a list of song features for selected decade"""
     # Query all passengers
     results = session.query(bbaf.song, bbaf.artist, bbaf.release_year, bbaf.peak_rank, 
                             bbaf.weeks_on_board, bbaf.track_id, bbaf.danceability, bbaf.energy, 
@@ -67,7 +67,7 @@ def data(decade):
                             filter(bbaf.decade==decade).\
                             filter(bbaf.billboard==1).\
                             all()
-
+    print("HELLO", results)
     session.close()
 
 
@@ -114,7 +114,6 @@ def predict_track(song, artist, decade):
         feature_list.append(track_features_dict['tempo'])
         feature_list.append(track_features_dict['duration_ms'])
         feature_list = [feature_list]
-    print(feature_list)
     file_path = "./ML_models/"
     model_names = {"1960s": "model_1960s",
                 "1970s": "model_1970s",
@@ -256,14 +255,15 @@ def get_track_features(song_title, artist):
         if found_id:
             return get_audio_features(found_id)
         
-        return "No results found!"
+        return False
 
 # Returns dictionary of scaled audio features from Spotify for specified track_id
 def get_audio_features(id):
     # Get the real artist and song names
-    name_results = sp.track("3AuzZHPlohKLpildLyORSM")
-    real_song = name_results['artists'][0]['name']
-    real_artist = name_results['name']
+    name_results = sp.track(id)
+    real_artist = name_results['artists'][0]['name']
+    real_song = name_results['name']
+    album_image = name_results['album']['images'][1]
     # Create list of desired audio features
     features_list = ['danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 
                    'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms']
@@ -284,7 +284,9 @@ def get_audio_features(id):
 
         # Create new dictionary with scaled features
         scaled_features_dict = {features_list[i]:scaled_features[i] for i in range(len(features_list))}
-        scaled_features_dict["song_info"] = [real_song, real_artist]
+        scaled_features_dict["song_name"] = real_song
+        scaled_features_dict["artist"] = real_artist
+        scaled_features_dict['image'] = album_image
         # Return dictionary with scaled features
         return scaled_features_dict
     # Return none
