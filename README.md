@@ -10,12 +10,6 @@
 
 Our goal was to create a website that could predict the likelihood of a song being a Billboard Top 100 song in a specific decade based on its Spotify audio features. A user can input any song/artist and a specific decade, then the site will present a percentage of how likely it is of being a top charting song during that timeframe.
 
-### **Process**:
-
-- In order to create this website we started off by compiling Spotify song features from the top 100 charting songs in every decade from 1960-2010. While also gathering the Spotify song features for songs in each decade that were not top charting songs. After organizing the features for non charting and charting songs we created a database to store all of it. We then trained a separate machine learning model in every decade to try to establish whether the top charting songs can be distinguished by their audio features.
-- _____
-- _____
-
 <hr>
 
 ### **Data**
