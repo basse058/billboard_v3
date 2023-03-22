@@ -65,12 +65,11 @@ From this we can see that this particular model has accuracy and precision score
 - https://docs.google.com/presentation/d/1HYz67E426ZDcFdiULjEukrsEuF019WVo4cjyy10KwFE/edit#slide=id.g2040c6cffc0_0_194
 
 
-### **Limitations/Future Possibilities**
-- **Limitation**:
+### Limitations
 - 
 
-- **Future Possibilities**: 
-In future projects we would like to compile more features for each song. Since each song only had 12 features it was difficult to create an accurate model for predicting a top charting song. With more features, the model would have more information to create a more accurate prediction. 
+### Future Possibilities**: 
+In future projects we would like to compile more features for each song. Since each song only had 12 features it was difficult to create an accurate model for predicting a top charting song. With more features, like genre, lyrics, and other qualities, the model would have more information to create a more accurate prediction. 
 
 ###** Website Image**
 
