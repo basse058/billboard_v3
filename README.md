@@ -32,10 +32,13 @@ Due to the inconsistencies in the syntax of song and artist names between the Bi
 
 We added a column to label the decade for each track, and wrote another function that retrieved the audio features from the Spotify API through Spotipy and added them as new columns to the dataframe. We decided to drop the 'key', 'mode', and 'time signature' features since these seemed to have no correlation at all with the time period, after looking at a few graphs of these values over time. At this point, we dropped any rows that contained null or missing values, removed all duplicates and removed from the non-charting dataset all songs that were present in the Billboard dataset to avoid overlap of labeled data. The Spotify dataset was filtered down to only the necessary columns ('song', 'artist', 'year', 'peak-rank', 'weeks-on-board', 'track_id', 'danceability', 'energy', 'key', 'loudness', 'mode', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo','duration_ms', 'time_signature', 'billboard'). Both datasets were merged and exported as a large csv file containing nearly 1.5 million rows of data.
 
+The data CSV was too large for a SQLite file so we stored the data in an S3 bucket. Using pyspark we were able to populate an AWS RDS with the data from the S3 bucket and create a postgresql database. 
+
 
 <hr>
 
 ### Machine Learning
+
 
 Our goal was to create models that would take in the audio features of a song and return a probability-based likelihood of that song being a hit within a particular decade based purely on its audio features: 'danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', and 'duration_ms'. More information on each feature can be found on the [Spotify for Developers](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-audio-features) website. 
 
@@ -63,4 +66,5 @@ From this we can see that this particular model has accuracy and precision score
 In future projects we would like to compile more features for each song. Since each song only had 12 features it was difficult to create an accurate model for predicting a top charting song. With more features, like genre, lyrics, and other qualities, the model would have more information to create a more accurate prediction. 
 
 ###** Website Image**
+![image](https://user-images.githubusercontent.com/111237645/227090757-041d9e34-67c3-4e61-b765-1fc0e343e24f.png)
 
